@@ -19,7 +19,7 @@ return [
 public function messages() {
 return [
 'name.required' => 'Nama item wajib diisi.',
-'quantity.integer' => 'Jumlah harus angka bulat.',
+'quantity.required' => 'Jumlah harus angka bulat.',
 'price.numeric' => 'Harga harus berupa angka.',
 'category_id.exists' => 'Kategori tidak ditemukan.',
 ];
