@@ -2,95 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ItemService;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
-use App\Models\Item;
-use Illuminate\Http\Request;
+use App\Services\ItemService;
+use App\Http\Controllers\Api\BaseController;
 
-class ItemController extends Controller
+class ItemController extends BaseController
 {
-    protected ItemService $svc;
+    protected ItemService $layananBarang;
 
-    public function __construct(ItemService $svc)
+    public function __construct(ItemService $layananBarang)
     {
-        $this->svc = $svc;
+        $this->layananBarang = $layananBarang;
     }
 
     public function index()
     {
-        return response()->json([
-            'status' => 'success',
-            'data' => $this->svc->all(),
-            'message' => 'Berhasil menarik semua data Item'
-        ]);
+        return $this->success($this->layananBarang->all(), 'Data semua barang berhasil diambil');
     }
 
-    public function store(StoreItemRequest $req)
+    public function store(StoreItemRequest $request)
     {
-        $item = $this->svc->create($req->validated());
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $item,
-            'message' => 'Item berhasil dibuat'
-        ], 201);
+        $barang = $this->layananBarang->create($request->validated());
+        return $this->success($barang, "Barang berhasil dibuat", 201);
     }
 
     public function show($id)
     {
         try {
-            $item = $this->svc->find($id);
-
-            return response()->json([
-                'status' => 'success',
-                'data' => $item,
-                'message' => 'Berhasil menarik satu data Item'
-            ]);
+            $barang = $this->layananBarang->find($id);
+            return $this->success($barang, 'Barang ditemukan');
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'data' => null,
-                'message' => $e->getMessage()
-            ], 404);
+            return $this->error($e->getMessage(), 404);
         }
     }
 
-    public function update(UpdateItemRequest $req, $id)
+    public function update(UpdateItemRequest $request, $id)
     {
-        try {
-            $item = $this->svc->update($id, $req->validated());
-
-            return response()->json([
-                'status' => 'success',
-                'data' => $item,
-                'message' => 'Item berhasil diperbarui'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'data' => null,
-                'message' => $e->getMessage()
-            ], 404);
-        }
+        $barang = $this->layananBarang->update($id, $request->validated());
+        return $this->success($barang, "Barang berhasil diperbarui");
     }
 
     public function destroy($id)
     {
-        try {
-            $this->svc->delete($id);
-
-            return response()->json([
-                'status' => 'success',
-                'data' => null,
-                'message' => 'Item berhasil dihapus'
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'data' => null,
-                'message' => $e->getMessage()
-            ], 404);
-        }
+        $this->layananBarang->delete($id);
+        return $this->success(null, "Barang berhasil dihapus", 204);
     }
 }

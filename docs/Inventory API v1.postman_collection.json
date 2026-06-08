@@ -1,0 +1,145 @@
+{
+  "info": {
+    "_postman_id": "3faab458-860b-45f9-8dea-026e8a3bd152",
+    "name": "Inventory API v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54448829",
+    "_collection_link": "https://go.postman.co/collection/54448829-3faab458-860b-45f9-8dea-026e8a3bd152?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "1. Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "name",
+              "value": "Akbar",
+              "type": "text",
+              "uuid": "413e4b51-c3b9-427c-885c-c8c9e746ae05"
+            },
+            {
+              "key": "email",
+              "value": "akbar5@mail.com",
+              "type": "text",
+              "uuid": "69079d6d-f9a3-4e1b-a736-4648372b9081"
+            },
+            {
+              "key": "password",
+              "value": "12345678",
+              "type": "text",
+              "uuid": "755a39fe-a5b7-4a4b-822f-15fb4634b8d0"
+            },
+            {
+              "key": "password_confirmation",
+              "value": "12345678",
+              "type": "text",
+              "uuid": "39f0327e-ed04-4ff2-aa4e-3166aa26e2da"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/register",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2. Login",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "6|GracrEcUB3U6lKr8G1KJ5oCnruiAEfDzQgY9JzAl60fda423",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "email",
+              "value": "akbar5@mail.com",
+              "type": "text",
+              "uuid": "cfad7486-2415-418b-ab37-e98fca584734"
+            },
+            {
+              "key": "password",
+              "value": "12345678",
+              "type": "text",
+              "uuid": "f76dd532-bb85-41f9-a9b7-89378925697d"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/v1/login",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3. GET Items",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "4. POST Items",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "5. GET Items (Error 404)",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
