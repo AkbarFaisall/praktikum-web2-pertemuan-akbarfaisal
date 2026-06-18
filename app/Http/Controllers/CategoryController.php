@@ -19,7 +19,7 @@ class CategoryController extends BaseController
     public function index()
     {
         
-        return $this->success($this->layananKategori->all(), 'datanya udah ditarik semua');
+        return $this->success($this->layananKategori->all(), 'Semua data kategori berhasil dimuat');
     }
 
     public function store(StoreCategoryRequest $request)
