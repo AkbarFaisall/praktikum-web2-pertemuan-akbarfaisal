@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Services\ItemService;
@@ -16,9 +17,15 @@ class ItemController extends BaseController
         $this->layananBarang = $layananBarang;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->success($this->layananBarang->all(), 'Data semua barang berhasil diambil');
+        // Memfilter data barang berdasarkan category_id yang dikirim dari URL
+        $semuaBarang = $this->layananBarang->all()->filter(fn($barang) => 
+            !$request->category_id || $barang->category_id == $request->category_id
+        );
+
+        // Menambahkan values() agar struktur array JSON tetap rapi berurutan
+        return $this->success($semuaBarang->values(), "Data barang berhasil diambil");
     }
 
     public function store(StoreItemRequest $request)
@@ -31,7 +38,7 @@ class ItemController extends BaseController
     {
         try {
             $barang = $this->layananBarang->find($id);
-            return $this->success($barang, 'Barang ditemukan');
+            return $this->success($barang, "Barang ditemukan");
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 404);
         }
@@ -46,6 +53,6 @@ class ItemController extends BaseController
     public function destroy($id)
     {
         $this->layananBarang->delete($id);
-        return $this->success(null, "Barang berhasil dihapus", 204);
+        return $this->success(null, "Barang dihapus", 204);
     }
 }
