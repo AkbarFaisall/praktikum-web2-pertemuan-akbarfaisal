@@ -30,8 +30,8 @@ class ItemController extends BaseController
 
     public function store(StoreItemRequest $request)
     {
-        $barang = $this->layananBarang->create($request->validated());
-        return $this->success($barang, "Barang berhasil dibuat", 201);
+    $barang = $this->layananBarang->create($request->validated());
+    return $this->success($barang, "Barang berhasil dibuat", 201);
     }
 
     public function show($id)

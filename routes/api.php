@@ -6,9 +6,10 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CategoryController;
 
 Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login'])->name('login');
 
-Route::middleware('auth:sanctum')->group(function () {
+
+Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
     Route::apiResource('categories', CategoryController::class)->except(['destroy']);
     Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->middleware('role:admin');
 
